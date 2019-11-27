@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessageInterface} from '../shared/interfaces/validation-message.interface';
+import {AuthService} from '../shared/services/auth.service';
 
 @Component({
     selector: 'app-auth-form',
@@ -27,7 +28,7 @@ export class AuthFormPage implements OnInit {
         ]))
     });
 
-    constructor() {
+    constructor(private _authService: AuthService) {
     }
 
     get userForm(): FormGroup {
@@ -44,6 +45,14 @@ export class AuthFormPage implements OnInit {
 
     public auth(): void {
         if (this._userForm.valid) {
+            this._authService.auth(this._userForm.getRawValue()).subscribe(
+                res => {
+                    console.log(res);
+                },
+                err => {
+                    console.log(err);
+                }
+            );
             console.log(this._userForm.getRawValue());
         }
     }
