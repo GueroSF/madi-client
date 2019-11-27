@@ -42,7 +42,6 @@ RUN \
 # -----------------------------------------------------------------------------
 
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
-ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/platform-tools:/opt/tools
 
 RUN \
   echo ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT} >> /etc/environment && \
@@ -86,6 +85,9 @@ RUN \
   sdkmanager "platforms;android-${ANDROID_PLATFORMS_VERSION}" && \
   sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools/bin
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/platform-tools
 
 # -----------------------------------------------------------------------------
 # Install Node, NPM
