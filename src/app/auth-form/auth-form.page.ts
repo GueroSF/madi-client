@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessageInterface} from '../shared/interfaces/validation-message.interface';
 import {AuthService} from '../shared/services/auth.service';
+import {NavController} from '@ionic/angular';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
     selector: 'app-auth-form',
@@ -28,7 +30,10 @@ export class AuthFormPage implements OnInit {
         ]))
     });
 
-    constructor(private _authService: AuthService) {
+    constructor(
+        private _authService: AuthService,
+        private _navController: NavController,
+    ) {
     }
 
     get userForm(): FormGroup {
@@ -47,13 +52,20 @@ export class AuthFormPage implements OnInit {
         if (this._userForm.valid) {
             this._authService.auth(this._userForm.getRawValue()).subscribe(
                 res => {
-                    console.log(res);
+                    if (res) {
+                        this._navController.navigateForward('/blog');
+
+                        return;
+                    }
                 },
                 err => {
+                    if (err instanceof HttpErrorResponse) {
+
+                    }
+
                     console.log(err);
                 }
             );
-            console.log(this._userForm.getRawValue());
         }
     }
 
@@ -61,4 +73,6 @@ export class AuthFormPage implements OnInit {
         return this.userForm.get(fieldName).hasError(validation.type)
             && (this.userForm.get(fieldName).dirty || this.userForm.get(fieldName).touched);
     }
+
+    // private handlerAuthError(): void
 }

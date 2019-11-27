@@ -10,7 +10,7 @@ export class UserService {
     constructor() {
     }
 
-    public isLogin(): boolean {
+    public isLoggedIn(): boolean {
         return this._isLogin;
     }
 

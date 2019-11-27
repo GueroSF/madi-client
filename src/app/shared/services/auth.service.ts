@@ -22,7 +22,7 @@ export class AuthService {
                             this._user.setIsLogin(true);
                         }
 
-                        return this._user.isLogin();
+                        return this._user.isLoggedIn();
                     } catch (e) {
                         throw e;
                     }
