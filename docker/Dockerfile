@@ -42,6 +42,9 @@ RUN \
 # -----------------------------------------------------------------------------
 
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools/bin
+ENV PATH $PATH:${ANDROID_SDK_ROOT}/platform-tools
 
 RUN \
   echo ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT} >> /etc/environment && \
@@ -85,9 +88,6 @@ RUN \
   sdkmanager "platforms;android-${ANDROID_PLATFORMS_VERSION}" && \
   sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 
-ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools
-ENV PATH $PATH:${ANDROID_SDK_ROOT}/tools/bin
-ENV PATH $PATH:${ANDROID_SDK_ROOT}/platform-tools
 
 # -----------------------------------------------------------------------------
 # Install Node, NPM
@@ -118,7 +118,7 @@ RUN \
 
 
 # -----------------------------------------------------------------------------
-# Create a non-root docker user to run this container
+# Create a non-root docker userForm to run this container
 # -----------------------------------------------------------------------------
 ARG USER
 ENV USER ${USER:-ionic}

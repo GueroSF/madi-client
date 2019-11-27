@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">auth-form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="userForm" (ngSubmit)="auth()">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <ion-item>
+            <ion-label color="medium" position="floating">UserName</ion-label>
+            <ion-input [formControl]="userForm.controls['username']" name="username" type="text"></ion-input>
+          </ion-item>
+          <div class="madi-validation-errors">
+            <ng-container *ngFor="let validation of validateMessages['username']">
+              <div class="madi-error-message" *ngIf="checkErrorField('username', validation)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <ion-item>
+            <ion-label color="medium" position="floating">Password</ion-label>
+            <ion-input [formControl]="userForm.controls['password']" name="password" type="password"></ion-input>
+          </ion-item>
+          <div class="madi-validation-errors">
+            <ng-container *ngFor="let validation of validateMessages['password']">
+              <div class="madi-error-message" *ngIf="checkErrorField('password', validation)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <ion-button size="large" type="submit" [disabled]="userForm.invalid" expand="block">Login</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
