@@ -12,7 +12,7 @@ export class ApiRequestService {
 
     private _token: string;
 
-    private _apiHeaders: {headers: HttpHeaders};
+    private _apiHeaders: HttpHeaders;
 
     constructor(private _http: HttpClient) {
         this.initHeaders();
@@ -24,24 +24,28 @@ export class ApiRequestService {
         this.initHeaders();
     }
 
-    public post(url: string, data: object): Observable<any> {
-        return this._http.post(this._apiUrl + url, JSON.stringify(data), this._apiHeaders);
+    public post(url: string, data?: object): Observable<any> {
+        return this._http.post(
+            this._apiUrl + url,
+            data !== undefined ? JSON.stringify(data) : null,
+            {headers: this._apiHeaders}
+        );
+    }
+
+    public get(url: string): Observable<any> {
+        return this._http.get(this._apiUrl + url, {headers: this._apiHeaders});
     }
 
     private initHeaders(): void {
         if (this._token === undefined) {
-            this._apiHeaders = {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                })
-            };
+            this._apiHeaders = new HttpHeaders({
+                'Content-Type': 'application/json',
+            });
         } else {
-            this._apiHeaders = {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this._token
-                })
-            };
+            this._apiHeaders = new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this._token
+            });
         }
     }
 }

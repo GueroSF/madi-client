@@ -17,9 +17,9 @@ export class AuthService {
             .pipe(
                 map(res => {
                     try {
-                        if (res.token !== null) {
+                        if (res.token !== undefined && res.token !== null) {
                             this._api.pushToken(res.token);
-                            this._user.setIsLogin(true);
+                            this._user.setIsLoggedIn(true);
                         }
 
                         return this._user.isLoggedIn();

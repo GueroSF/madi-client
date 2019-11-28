@@ -5,5 +5,12 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ng-container *ngFor="let post of list$ | async">
+      <ion-item [color]="post.isSign ? 'medium' : ''">
+        <ion-label>{{ post.title }}</ion-label>
+        <ion-button slot="end" (click)="show(post)">Посмотреть</ion-button>
+      </ion-item>
+    </ng-container>
+  </ion-list>
 </ion-content>

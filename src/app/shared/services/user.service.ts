@@ -14,7 +14,7 @@ export class UserService {
         return this._isLogin;
     }
 
-    public setIsLogin(value: boolean): void {
+    public setIsLoggedIn(value: boolean): void {
         this._isLogin = value;
     }
 }
