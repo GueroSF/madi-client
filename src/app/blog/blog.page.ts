@@ -26,10 +26,8 @@ export class BlogPage implements OnInit {
 
     ngOnInit() {
         this._postService.list$.subscribe(res => {
-            this._list$.next(res.list);
+            this._list$.next(res);
         });
-
-        this._postService.requestPostsList();
     }
 
     public show(post: PostInterface): void {
